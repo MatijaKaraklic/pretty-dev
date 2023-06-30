@@ -1,51 +1,99 @@
-
-const specificColorLog = (message) => {
-    const black = () => {console.log('\x1b[30m' + message + '\x1b[37m')}
-    const red = () => {console.log('\x1b[31m' + message + '\x1b[37m')}
-    const green = () => {console.log('\x1b[32m' + message + '\x1b[37m')}
-    const yellow = () => {console.log('\x1b[33m' + message + '\x1b[37m')}
-    const blue = () => {console.log('\x1b[34m' + message + '\x1b[37m')}
-    const magenta = () => {console.log('\x1b[35m' + message + '\x1b[37m')}
-    const cyan = () => {console.log('\x1b[36m' + message + '\x1b[37m')}
-    const white = () => {console.log('\x1b[37m' + message + '\x1b[37m')}
-
-
-    return {
-        black: black,
-        red: red,
-        green: green,
-        yellow: yellow,
-        blue: blue,
-        magenta: magenta,
-        cyan: cyan,
-        white: white
+class Log{
+    constructor(){
+        this.messageText = '';
+        this.prefix = '\x1b[';
     }
+
+    setText(messageText){
+        this.messageText = messageText;
+        return this;
+    }
+
+    style = (style) => {
+        switch(style){
+            case textStyle.black:
+                this.prefix += textStyle.black;
+                break;
+            case textStyle.red:
+                this.prefix += textStyle.red;
+                break;
+            case textStyle.green:
+                this.prefix += textStyle.green;
+                break;
+            case textStyle.yellow:
+                this.prefix += textStyle.yellow;
+                break;
+            case textStyle.blue:
+                this.prefix += textStyle.blue;
+                break;
+            case textStyle.magenta:
+                this.prefix += textStyle.magenta;
+                break;
+            case textStyle.cyan:
+                this.prefix += textStyle.cyan;
+                break;
+            case textStyle.white:
+                this.prefix += textStyle.white;
+                break;
+            case textStyle.backgroundBlack:
+                this.prefix += textStyle.backgroundBlack;
+                break;
+            case textStyle.backgroundRed:   
+                this.prefix += textStyle.backgroundRed;
+                break;
+            case textStyle.backgroundGreen:
+                this.prefix += textStyle.backgroundGreen;
+                break;
+            case textStyle.backgroundYellow:
+                this.prefix += textStyle.backgroundYellow;
+                break;
+            case textStyle.backgroundBlue:
+                this.prefix += textStyle.backgroundBlue;
+                break;
+            case textStyle.backgroundMagenta:
+                this.prefix += textStyle.backgroundMagenta;
+                break;
+            case textStyle.backgroundCyan:
+                this.prefix += textStyle.backgroundCyan;
+                break;
+            case textStyle.backgroundWhite:
+                this.prefix += textStyle.backgroundWhite;
+                break;
+        }
+        this.prefix += ';';
+        return this;
+    }
+
+
+    print = () => {
+        this.prefix = this.prefix.slice(0, -1);
+        console.log(this.prefix + 'm' + this.messageText + '\x1b[0m');
+    }
+
 }
 
-const specificBackgroundColorLog = (message) => {
-    const black = () => {console.log('\x1b[40m' + message + '\x1b[40m')}
-    const red = () => {console.log('\x1b[41m' + message + '\x1b[40m')}
-    const green = () => {console.log('\x1b[42m' + message + '\x1b[40m')}
-    const yellow = () => {console.log('\x1b[43m' + message + '\x1b[40m')}
-    const blue = () => {console.log('\x1b[44m' + message + '\x1b[40m')}
-    const magenta = () => {console.log('\x1b[45m' + message + '\x1b[40m')}
-    const cyan = () => {console.log('\x1b[46m' + message + '\x1b[40m')}
-    const white = () => {console.log('\x1b[47m' + message + '\x1b[40m')}
-
-
-    return {
-        black: black,
-        red: red,
-        green: green,
-        yellow: yellow,
-        blue: blue,
-        magenta: magenta,
-        cyan: cyan,
-        white: white
-    }
+const textStyle = {
+    black: '30',
+    red: '31',
+    green: '32',
+    yellow: '33',
+    blue: '34',
+    magenta: '35',
+    cyan: '36',
+    white: '37',
+    backgroundBlack: '40',
+    backgroundRed: '41',
+    backgroundGreen: '42',
+    backgroundYellow: '43',
+    backgroundBlue: '44',
+    backgroundMagenta: '45',
+    backgroundCyan: '46',
+    backgroundWhite: '47'
 }
+
+
 
 module.exports = {
-    log: specificColorLog,
-    background: specificBackgroundColorLog
+    Log: Log,
+    logStyle: textStyle
 }
