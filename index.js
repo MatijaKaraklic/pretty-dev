@@ -59,6 +59,15 @@ class Log{
             case textStyle.backgroundWhite:
                 this.prefix += textStyle.backgroundWhite;
                 break;
+            case textStyle.bold:
+                this.prefix += textStyle.bold;
+                break;
+            case textStyle.italic:
+                this.prefix += textStyle.italic;
+                break;
+            case textStyle.underline:
+                this.prefix += textStyle.underline;
+                break;
         }
         this.prefix += ';';
         return this;
@@ -67,7 +76,14 @@ class Log{
 
     print = () => {
         this.prefix = this.prefix.slice(0, -1);
-        console.log(this.prefix + 'm' + this.messageText + '\x1b[0m');
+        const text = this.prefix + 'm' + this.messageText + '\x1b[0m';
+        console.log(text);
+    }
+
+    text = () => {
+        this.prefix = this.prefix.slice(0, -1);
+        const text = this.prefix + 'm' + this.messageText + '\x1b[0m';
+        return text;
     }
 
 }
@@ -88,7 +104,12 @@ const textStyle = {
     backgroundBlue: '44',
     backgroundMagenta: '45',
     backgroundCyan: '46',
-    backgroundWhite: '47'
+    backgroundWhite: '47',
+
+    bold: '1',
+    italic: '3',
+    underline: '4'
+
 }
 
 
